@@ -1,0 +1,138 @@
+/* Card Container */
+.body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center; /* Align items in the center */
+  gap: 20px; /* Space between elements */
+}
+
+.card {
+  position: relative; /* Ensure .overlay stays inside */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 300px; /* Adjust as needed */
+  margin: 20px;
+  flex: 1 1 calc(20% - 5px);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Image */
+.card-image {
+  width: 100%;
+  height: 200px; /* Adjust as needed */
+  object-fit: cover;
+}
+
+/* Card Content */
+.card-content {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin: 0 0 10px;
+  color: #333;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 15px;
+}
+
+/* Card Footer (Optional) */
+.card-footer {
+  padding: 15px 20px;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-footer .btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.card-footer .btn-primary {
+  background: #007bff;
+  color: #fff;
+}
+
+.card-footer .btn-primary:hover {
+  background: #0056b3;
+}
+
+.card-footer .btn-secondary {
+  background: #6c757d;
+  color: #fff;
+}
+
+.card-footer .btn-secondary:hover {
+  background: #5a6268;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+      max-width: 100%;
+      margin: 10px;
+  }
+}
+
+/* Fix Overlay Effect */
+.overlay {
+  position: absolute;
+  top: 100%; /* Initially hidden below the card */
+  left: 0;
+  right: 0;
+  background-color: #6c757d; /* Added transparency */
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  transition: top 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Show overlay smoothly on hover */
+.card:hover .overlay {
+  top: 0; /* Moves overlay into view */
+}
+
+/* Overlay Text */
+.text {
+  color: white;
+  font-size: 14px;
+  text-align: left;
+  transition: opacity 0.9s ease-in-out;
+}
+.mar {
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  margin: 20px;
+  padding: 20px; 
+  background-color:rgb(8, 8, 8) ; 
+  color: white; 
+  border-radius: 12px; 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+.card:hover .text {
+  opacity: 1;
+}

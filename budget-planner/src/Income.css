@@ -1,0 +1,176 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  transition: background-color 0.3s;
+}
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: #34495e;
+}
+
+/* Summary Panel */
+.summary-panel {
+  width: 250px;
+  background: #ecf0f1;
+  padding: 20px;
+  text-align: center;
+}
+
+.summary-panel h2 {
+  margin-bottom: 10px;
+}
+
+.toggle-dark-mode {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: #2980b9;
+  color: white;
+  cursor: pointer;
+  }
+
+.toggle-dark-mode:hover {
+  background: #1f618d;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 10px;
+  border: none;
+  background: #27ae60;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background: #219150;
+}
+
+/* Income List */
+.incomeList {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.deleteButton {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background: #c0392b;
+}
+
+/* Chart Container */
+.chart-container {
+  display:flex;
+  height: 200px;;
+  width: 200px;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+/* Dark Mode */
+.dark {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.dark .sidebar {
+  background: #1f1f1f;
+}
+
+.dark .summary-panel {
+  background: #333;
+}
+
+.dark .table {
+  background: #222;
+  color: white;
+}
+
+.dark .deleteButton {
+  background: #e74c3c;
+}
+
+.dark .deleteButton:hover {
+  background: #c0392b;
+}
+
+
+
+
+
+
+
+
