@@ -45,7 +45,14 @@ export default function Tax() {
   during the financial year 2025-2026
   </p>
   <div class="overlay">
-    <div class ="text">Hello</div>
+    <div class ="text">
+    <p class="mar">
+    Gross Income: ₹12,50,000<br/>
+    Standard Deduction: ₹75,500<br/>
+    Taxable Income = ₹12,50,000 - ₹75,000 = ₹11,75,000<br/>
+    Thus the payable tax amount become 11,75,000 
+
+    </p></div>
   </div>
 </div>
 </div>
@@ -59,12 +66,16 @@ export default function Tax() {
 />
 
 <div class="card-content">
-  <h3 class="card-title">Tax Realization</h3>
+  <h3 class="card-title"> Marginal Relief</h3>
   <p class="card-description">
-    This is a description of the card. It can contain details about the content.
+  Taxpayers can claim marginal relief under section 115BAC only until their taxable income reaches
+         ₹12,75,000. Beyond this point, marginal relief no longer applies, 
+        and taxes are calculated based on standard slab rates.
   </p>
   <div class="overlay">
-    <div class ="text">Hello</div>
+    <div class ="text">
+      <p class="mar"></p>
+    </div>
   </div>
 </div>
 </div>
@@ -114,11 +125,25 @@ export default function Tax() {
 />
 
 <div class="card-content">
-  <h3 class="card-title">Surcharge</h3>
+  <h3 class="card-title">Surcharge and cess charge</h3>
   <p class="card-description">
-    This is a description of the card. It can contain details about the content.
+    It is calculated from tax amount as per the tax slab <br/>(₹50 lakh – ₹1 crore	10%)	<br/>
+(₹1 crore – ₹2 crore	15%)	<br/>
+(₹2 crore – ₹5 crore	25%)
   </p>
 </div>
+<div class="overlay">
+    <div class ="text">
+      <p class="mar">Income ₹1 crore<br/>
+      Basic Tax Calculation: ₹26,80,000<br/>
+          Surcharge (Capped at 25%) = ₹26,80,000 × 10% = ₹2,68,000<br/>
+          Total Tax Before Cess = ₹26,80,000+ ₹2,68,000= ₹29,48,000<br/>
+          Cess (4%) =  ₹29,48,000× 4% = ₹1,17,920<br/>
+         Total Tax Payable = ₹30,65,920<br/>
+         Cess is Always 4% on (Tax + Surcharge)
+      </p>
+    </div>
+  </div>
 </div>
 <br />
 

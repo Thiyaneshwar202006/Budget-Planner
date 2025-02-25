@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import "./Income.css";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const Expense = () => {
-  const [income, setIncome] = useState(""); // Track total income
+  const [income, setIncome] = useState(""); 
   const [expenses, setExpenses] = useState([]);
   const [expenseSource, setExpenseSource] = useState("");
   const [amount, setAmount] = useState("");
@@ -62,6 +64,38 @@ const Expense = () => {
     ],
   };
 
+  const downloadTableAsPDF = () => {
+    const doc = new jsPDF();
+  
+    doc.text("Budget Report", 14, 10); // Title at the top
+  
+    const table = document.getElementById("table");
+    const headers = [];
+    const data = [];
+  
+    // Get table headers
+    table.querySelectorAll("thead th").forEach((header) => {
+      headers.push(header.innerText);
+    });
+  
+    // Get table rows
+    table.querySelectorAll("tbody tr").forEach((row) => {
+      const rowData = [];
+      row.querySelectorAll("td").forEach((cell) => {
+        rowData.push(cell.innerText);
+      });
+      data.push(rowData);
+    });
+  
+    // Add the table to the PDF
+    doc.autoTable({
+      head: [headers], // Table headers
+      body: data, // Table rows
+      startY: 20, // Position below title
+    });
+  
+    doc.save("expense_report.pdf"); // Download the PDF
+  };
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : ""}`}>
       <div className="summary-panel">
@@ -85,14 +119,14 @@ const Expense = () => {
           {darkMode ? "Light" : "Dark"} Mode
         </button>
 
-        <h2>Expense Distribution</h2>
+        <h2>Budget Distribution</h2>
         <div className="chart-container">
           <Pie data={chartData} />
         </div>
       </div>
 
       <div className="main-content">
-        <h1 className="header">Expense Tracker</h1>
+        <h1 className="header">Budgeting</h1>
         <form onSubmit={addExpense} className="form">
           <input
             type="text"
@@ -135,51 +169,60 @@ const Expense = () => {
             Recurring Expense
           </label>
           <button type="submit" className="button" disabled={!income || parseFloat(income) <= 0}>
-            Add Expense
+            Add Budget
           </button>
         </form>
+          <div className="expenseList">
+  <h2>Budget List</h2>
+  <table id="table" className="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Source</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>% of Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {expenses.map((expense) => (
+        <tr key={expense.id}>
+          <td>{expense.date}</td>
+          <td>{expense.source}</td>
+          <td>₹{expense.amount.toFixed(2)}</td>
+          <td>{expense.category}</td>
+          <td>
+            {totalExpenses > 0
+              ? ((expense.amount / totalExpenses) * 100).toFixed(2) + "%"
+              : "0%"}
+          </td>
+          <td>
+            <button
+              onClick={() => deleteExpense(expense.id)}
+              className="deleteButton"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
 
-        <div className="expenseList">
-          <h2>Expense List</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Source</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>% of Total</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {expenses.map((expense) => (
-                <tr key={expense.id}>
-                  <td>{expense.date}</td>
-                  <td>{expense.source}</td>
-                  <td>₹{expense.amount.toFixed(2)}</td>
-                  <td>{expense.category}</td>
-                  <td>
-                    {totalExpenses > 0
-                      ? ((expense.amount / totalExpenses) * 100).toFixed(2) + "%"
-                      : "0%"}
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => deleteExpense(expense.id)}
-                      className="deleteButton"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+  {/* Download Button */}
+  <button onClick={downloadTableAsPDF} className="button">
+  Download Table as PDF
+</button>
+
+</div>
+
+   
+        
       </div>
     </div>
   );
 };
 
 export default Expense;
+Expense
