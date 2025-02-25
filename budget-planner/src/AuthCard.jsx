@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./login.css"; // We'll create this CSS file next
+import axios from "axios";
+import "./login.css"; // Ensure you have this CSS file for styling
 
 const AuthCard = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -7,13 +8,15 @@ const AuthCard = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
     setError("");
-    setPassword("");
-    setEmail("");
+    setMessage("");
     setName("");
+    setEmail("");
+    setPassword("");
   };
 
   const handlePasswordChange = (e) => {
@@ -26,7 +29,35 @@ const AuthCard = () => {
     }
   };
 
-  const isFormValid = isLogin ? email && password.length >= 6 : name && email && password.length >= 6;
+  const isFormValid = isLogin 
+    ? email && password.length >= 6 
+    : name && email && password.length >= 6;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMessage("");
+
+    try {
+      const url = isLogin
+        ? "http://localhost:5000/api/auth/login"
+        : "http://localhost:5000/api/auth/signup";
+
+      const payload = isLogin 
+        ? { email, password }
+        : { username: name, email, password };
+
+      const response = await axios.post(url, payload);
+      setMessage(response.data.message);
+
+      // If login, save token (if provided)
+      if (isLogin && response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "An error occurred.");
+    }
+  };
 
   return (
     <div className="auth-card">
@@ -34,61 +65,39 @@ const AuthCard = () => {
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
       </div>
       <div className="auth-card-body">
-        {isLogin ? (
-          <form>
+        {error && <p className="error-message">{error}</p>}
+        {message && <p className="success-message">{message}</p>}
+        <form onSubmit={handleSubmit}>
+          {!isLogin && (
             <div className="form-group">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input 
-                type="password" 
-                placeholder="Enter your password" 
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              {error && <p className="error-message">{error}</p>}
-            </div>
-            <button type="submit" className="submit-btn" disabled={!isFormValid}>
-              Login
-            </button>
-          </form>
-        ) : (
-          <form>
-            <div className="form-group">
-              <input 
-                type="text" 
-                placeholder="Enter your name" 
+              <input
+                type="text"
+                placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className="form-group">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input 
-                type="password" 
-                placeholder="Enter your password" 
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              {error && <p className="error-message">{error}</p>}
-            </div>
-            <button type="submit" className="submit-btn" disabled={!isFormValid}>
-              Sign Up
-            </button>
-          </form>
-        )}
+          )}
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <button type="submit" className="submit-btn" disabled={!isFormValid}>
+            {isLogin ? "Login" : "Sign Up"}
+          </button>
+        </form>
       </div>
       <div className="auth-card-footer">
         <p>
