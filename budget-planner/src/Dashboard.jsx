@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
-// import "./Dashboard.css";
+import "./Dashboard.css";
+import jsPDF from "jspdf";
 
 const Dashboard = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [incomeData, setIncomeData] = useState([5000, 7000, 6000, 8000, 9000]);
-  const [expenseData, setExpenseData] = useState([3000, 4000, 3500, 5000, 5500]);
-  const [labels] = useState(["Jan", "Feb", "Mar", "Apr", "May"]);
+  const [incomeData, setIncomeData] = useState([]);
+  const [expenseData, setExpenseData] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const [newIncome, setNewIncome] = useState("");
+  const [newExpense, setNewExpense] = useState("");
+  const [newLabel, setNewLabel] = useState("");
 
+  // Chart data
   const chartData = {
     labels: labels,
     datasets: [
@@ -18,6 +23,11 @@ const Dashboard = () => {
         borderColor: "#2ecc71",
         backgroundColor: "rgba(46, 204, 113, 0.2)",
         tension: 0.4,
+        fill: true,
+        pointBackgroundColor: "#2ecc71",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "#2ecc71",
       },
       {
         label: "Expenses",
@@ -25,35 +35,135 @@ const Dashboard = () => {
         borderColor: "#e74c3c",
         backgroundColor: "rgba(231, 76, 60, 0.2)",
         tension: 0.4,
+        fill: true,
+        pointBackgroundColor: "#e74c3c",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "#e74c3c",
       },
     ],
   };
 
-  return (
-    <div className={`dashboard-container ${darkMode ? "dark" : ""}`}>
-      <h1>Dashboard<br/></h1>
-      {/* <button className="toggle-dark-mode" onClick={() => setDarkMode(!darkMode)}>
-        {darkMode ? "Light" : "Dark"} Mode
-      </button> */}
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+        labels: { color: darkMode ? "#ecf0f1" : "#2c3e50", font: { size: 14 } },
+      },
+      tooltip: {
+        backgroundColor: darkMode ? "#34495e" : "#fff",
+        titleColor: darkMode ? "#ecf0f1" : "#2c3e50",
+        bodyColor: darkMode ? "#ecf0f1" : "#2c3e50",
+      },
+    },
+    scales: {
+      x: {
+        ticks: { color: darkMode ? "#ecf0f1" : "#2c3e50" },
+        grid: { color: darkMode ? "#34495e" : "#e0e0e0" },
+      },
+      y: {
+        ticks: { color: darkMode ? "#ecf0f1" : "#2c3e50" },
+        grid: { color: darkMode ? "#34495e" : "#e0e0e0" },
+      },
+    },
+  };
 
-      <div className="cards-container">
-        <div className="card">
-          <h3>Total Income</h3>
-          <p>₹{incomeData.reduce((a, b) => a + b, 0)}</p>
-        </div>
-        <div className="card">
-          <h3>Total Expenses</h3>
-          <p>₹{expenseData.reduce((a, b) => a + b, 0)}</p>
-        </div>
-        <div className="card">
-          <h3>Remaining Balance</h3>
-          <p>₹{incomeData.reduce((a, b) => a + b, 0) - expenseData.reduce((a, b) => a + b, 0)}</p>
+  // Add new data point
+  const addDataPoint = (e) => {
+    e.preventDefault();
+    if (newLabel && newIncome && newExpense) {
+      setLabels([...labels, newLabel]);
+      setIncomeData([...incomeData, parseFloat(newIncome)]);
+      setExpenseData([...expenseData, parseFloat(newExpense)]);
+      setNewLabel("");
+      setNewIncome("");
+      setNewExpense("");
+    }
+  };
+
+  // Export chart data as PDF
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Financial Dashboard Report", 10, 10);
+    doc.autoTable({
+      head: [["Month", "Income (₹)", "Expenses (₹)"]],
+      body: labels.map((label, index) => [
+        label,
+        incomeData[index].toLocaleString(),
+        expenseData[index].toLocaleString(),
+      ]),
+      startY: 20,
+    });
+    doc.save("dashboard_report.pdf");
+  };
+
+  return (
+    <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
+      <div className="dashboard-header">
+        <h1>Financial Dashboard</h1>
+        <div className="dashboard-controls">
+          <button
+            className="toggle-dark-mode"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? "☀️ Light" : "🌙 Dark"} Mode
+          </button>
+          <button className="dashboard-export-btn" onClick={exportToPDF}>
+            Export PDF
+          </button>
         </div>
       </div>
 
-      <div className="chart-container">
-        <h2>Income vs. Expenses</h2>
-        <Line data={chartData} />
+      <div className="dashboard-cards-container">
+        <div className="dashboard-card dashboard-income-card">
+          <h3>Total Income</h3>
+          <p className="dashboard-amount">
+            ₹{incomeData.reduce((a, b) => a + b, 0).toLocaleString()}
+          </p>
+        </div>
+        <div className="dashboard-card dashboard-expense-card">
+          <h3>Total Expenses</h3>
+          <p className="dashboard-amount">
+            ₹{expenseData.reduce((a, b) => a + b, 0).toLocaleString()}
+          </p>
+        </div>
+        <div className="dashboard-card dashboard-balance-card">
+          <h3>Remaining Balance</h3>
+          <p className="dashboard-amount">
+            ₹{(incomeData.reduce((a, b) => a + b, 0) - expenseData.reduce((a, b) => a + b, 0)).toLocaleString()}
+          </p>
+        </div>
+      </div>
+
+      <form className="dashboard-data-form" onSubmit={addDataPoint}>
+        <input
+          type="text"
+          placeholder="Month (e.g., Jun)"
+          value={newLabel}
+          onChange={(e) => setNewLabel(e.target.value)}
+          className="dashboard-input"
+        />
+        <input
+          type="number"
+          placeholder="Income"
+          value={newIncome}
+          onChange={(e) => setNewIncome(e.target.value)}
+          className="dashboard-input"
+        />
+        <input
+          type="number"
+          placeholder="Expense"
+          value={newExpense}
+          onChange={(e) => setNewExpense(e.target.value)}
+          className="dashboard-input"
+        />
+        <button type="submit" className="dashboard-add-btn">Add Data</button>
+      </form>
+
+      <div className="dashboard-chart-container">
+        <h2>Income vs. Expenses Trend</h2>
+        <Line data={chartData} options={chartOptions} />
       </div>
     </div>
   );
