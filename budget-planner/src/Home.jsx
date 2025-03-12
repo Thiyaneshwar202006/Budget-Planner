@@ -78,6 +78,37 @@ export default function Home() {
         ))}
       </div>
       
+      <section id="services" class="services">
+        <h2>💼 Our Services</h2>
+        <div class="service-list">
+            <div class="service">
+                <h3>📈 Investment Planning</h3>
+                <p>Smart investment strategies to maximize returns.</p>
+            </div>
+            <div class="service">
+                <h3>📝 Tax Advisory</h3>
+                <p>Efficient tax planning to minimize liabilities.</p>
+            </div>
+            <div class="service">
+                <h3>🏡 Retirement Planning</h3>
+                <p>Secure your future with customized retirement plans.</p>
+            </div>
+            <div class="service">
+                <h3>📊 Budget Planning</h3>
+                <p>Personalized budgeting plans for financial stability.</p>
+            </div>
+            <div class="service">
+                <h3>💰 Wealth Management</h3>
+                <p>Comprehensive wealth-building strategies.</p>
+            </div>
+            <div class="service">
+                <h3>⚖ Risk Analysis</h3>
+                <p>Identify and mitigate financial risks effectively.</p>
+            </div>
+        </div>
+    </section>
+
+
       {/* Reviews Section */}
       <div className="reviews-section">
   <h2>User Reviews</h2>

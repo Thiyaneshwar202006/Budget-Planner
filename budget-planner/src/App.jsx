@@ -1,11 +1,6 @@
 import './App.css'
-import About from './About'
 import {Routes,Route,Link } from 'react-router-dom'
 import Navigationbar from './Navigationbar.jsx'
-
-//components
-import AppContainer from './AppContainer.jsx'
-import Home from './Home.jsx'
 function App() {
   return (
    <>

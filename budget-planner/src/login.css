@@ -1,86 +1,78 @@
 .auth-card {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 1000;
-  }
-  
-  .auth-card-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .auth-card-header h2 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .auth-card-body .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .auth-card-body .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .auth-card-body .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .submit-btn {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .submit-btn:hover {
-    background: #0056b3;
-  }
-  
-  .auth-card-footer {
-    text-align: center;
-    margin-top: 15px;
-  }
-  
-  .auth-card-footer p {
-    margin: 0;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .toggle-link {
-    color: #007bff;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  
-  .toggle-link:hover {
-    color: #0056b3;
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000;
+}
 
+.auth-card-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
+.auth-card-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
 
+.auth-card-body .form-group {
+  margin-bottom: 15px;
+}
 
+.auth-card-body .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+}
 
+.auth-card-body .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
 
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
+.submit-btn:hover {
+  background: #0056b3;
+}
 
+.auth-card-footer {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.auth-card-footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.toggle-link {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.toggle-link:hover {
+  color: #0056b3;
+}

@@ -292,3 +292,11 @@ body {
 .dark .income-deleteButton:hover {
   background: linear-gradient(135deg, #e74c3c, #ff6b6b);
 }
+
+.button-group {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  align-items: center;
+}
+

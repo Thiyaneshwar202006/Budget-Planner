@@ -85,7 +85,6 @@
   background: #5a6268;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .card {
       max-width: 100%;
@@ -93,13 +92,12 @@
   }
 }
 
-/* Fix Overlay Effect */
 .overlay {
   position: absolute;
-  top: 100%; /* Initially hidden below the card */
+  top: 100%; 
   left: 0;
   right: 0;
-  background-color: #6c757d; /* Added transparency */
+  background-color: #6c757d; 
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -109,12 +107,10 @@
   justify-content: center;
 }
 
-/* Show overlay smoothly on hover */
 .card:hover .overlay {
-  top: 0; /* Moves overlay into view */
+  top: 0;
 }
 
-/* Overlay Text */
 .text {
   color: white;
   font-size: 14px;
@@ -123,8 +119,8 @@
 }
 .mar {
   display: flex;
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+  align-items: center; 
+  justify-content: center; 
   margin: 20px;
   padding: 20px; 
   background-color:rgb(8, 8, 8) ; 

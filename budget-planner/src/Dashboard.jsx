@@ -4,8 +4,8 @@ import "chart.js/auto";
 import "./Dashboard.css";
 import jsPDF from "jspdf";
 
-const Dashboard = () => {
-  const [darkMode, setDarkMode] = useState(false);
+const Dashboard = ({ totalIncome, totalExpenses, remainingBalance }) => {
+  const [darkMode, setDarkMode] = useState(true);
   const [incomeData, setIncomeData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
   const [labels, setLabels] = useState([]);
@@ -95,6 +95,10 @@ const Dashboard = () => {
       ]),
       startY: 20,
     });
+    // Include summary stats in the PDF
+    doc.text(`Total Income: ₹${totalIncome ? parseFloat(totalIncome).toLocaleString() : "0"}`, 10, doc.lastAutoTable.finalY + 10);
+    doc.text(`Total Expenses: ₹${totalExpenses.toLocaleString()}`, 10, doc.lastAutoTable.finalY + 20);
+    doc.text(`Remaining Balance: ₹${remainingBalance.toLocaleString()}`, 10, doc.lastAutoTable.finalY + 30);
     doc.save("dashboard_report.pdf");
   };
 
@@ -114,22 +118,21 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
-
       <div className="dashboard-cards-container">
         <div className="dashboard-card dashboard-income-card">
-          <h3>Total Income</h3>
+          <h3>Total Income :<span>₹{totalIncome ? parseFloat(totalIncome).toFixed(2) : "0.00"}</span></h3>
           <p className="dashboard-amount">
             ₹{incomeData.reduce((a, b) => a + b, 0).toLocaleString()}
           </p>
         </div>
         <div className="dashboard-card dashboard-expense-card">
-          <h3>Total Expenses</h3>
+          <h3>Total Expenses: <span>₹{totalExpenses.toFixed(2)}</span> </h3>
           <p className="dashboard-amount">
             ₹{expenseData.reduce((a, b) => a + b, 0).toLocaleString()}
           </p>
         </div>
         <div className="dashboard-card dashboard-balance-card">
-          <h3>Remaining Balance</h3>
+          <h3>Remaining Balance: <span>₹{remainingBalance.toFixed(2)}</span></h3>
           <p className="dashboard-amount">
             ₹{(incomeData.reduce((a, b) => a + b, 0) - expenseData.reduce((a, b) => a + b, 0)).toLocaleString()}
           </p>

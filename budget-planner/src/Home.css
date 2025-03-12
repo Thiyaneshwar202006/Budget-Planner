@@ -18,8 +18,11 @@ body {
     padding: 20px;
     font-size: 24px;
     font-weight: bold;
+    
   }
-  
+  .header h1{
+      animation: fadeIn 1s ease-in-out;
+  }
   /* Hero Section */
   .hero-section {
     background: linear-gradient(to right, #004c97, #00a2e8);
@@ -33,7 +36,11 @@ body {
   .hero-section h2 {
     font-size: 36px;
     margin-bottom: 10px;
-  }
+    animation: fadeIn 1.5s ease-in-out;
+    }
+    hero-section p{
+      animation: fadeIn 1.5s ease-in-out;
+    }
   .hero-section .time-indicator {
     font-size: 14px;
   }
@@ -303,4 +310,27 @@ body {
   margin-top: 20px;
   font-size: 14px;
   color: #b3b3b3;
+}
+.service-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.service {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  transition: 0.3s;
+}
+
+.service:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  background: #ffcc00;
+  color: white;
 }
